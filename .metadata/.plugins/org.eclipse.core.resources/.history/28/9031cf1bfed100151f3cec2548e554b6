@@ -1,0 +1,18 @@
+package ch02.ex05;
+
+public class Vehicle {
+	private double speed; // km/h
+	private double angle;
+	private String owner;
+	private static int nextID = 0;
+	private int myID;
+
+	public Vehicle(int id) {
+		this.myID = id;
+		Vehicle.nextID++;
+	}
+
+	public static void main(String[] args) {
+
+	}
+}

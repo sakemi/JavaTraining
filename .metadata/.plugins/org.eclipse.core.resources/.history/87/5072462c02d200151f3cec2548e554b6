@@ -1,0 +1,10 @@
+package ch02.ex06;
+
+public class LinkedList {
+	private Object member;
+	private LinkedList next;
+
+	public static void main(String[] args){
+
+	}
+}

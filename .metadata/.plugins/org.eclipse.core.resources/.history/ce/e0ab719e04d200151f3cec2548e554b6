@@ -1,0 +1,26 @@
+package ch02.ex08;
+
+public class LinkedList {
+	private Object content;
+	private LinkedList next;
+
+	public LinkedList(Object content, LinkedList next) {
+		this.content = content;
+		this.next = next;
+	}
+
+	public static void main(String[] args) {
+		Vehicle foo = new Vehicle();
+		Vehicle bar = new Vehicle();
+
+		LinkedList list2 = new LinkedList(bar,null);
+		LinkedList list1 = new LinkedList(foo,list2);
+
+
+		list1.content = foo;
+		list1.next = list2;
+
+		list2.content = bar;
+		list2.next = null;
+	}
+}
