@@ -1,0 +1,6 @@
+package ch01.ex15;
+
+public interface ImprovedLookup extends Lookup{
+	void add(String name, Object data);
+	void remove(String name);
+}

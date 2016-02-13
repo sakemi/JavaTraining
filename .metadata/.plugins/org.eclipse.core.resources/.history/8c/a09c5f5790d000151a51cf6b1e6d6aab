@@ -1,0 +1,29 @@
+package ch01.ex10;
+
+public class ImproveFibonacci {
+	static final int MAX_INDEX = 9;
+
+	public static void main(String[] args) {
+		int lo = 1;
+		int hi = 1;
+		int[] fibonacci = new int[MAX_INDEX];
+		EvenChecker[] evenChecker = new EvenChecker[10];
+
+		fibonacci[0] = lo;
+		evenChecker[0] = new EvenChecker(lo);
+		evenChecker[0].setEven(false);
+		for (int i = 2; i <= MAX_INDEX; i++) {
+			fibonacci[i] = hi;
+			evenChecker[i] = new EvenChecker(hi);
+			if (hi % 2 == 0) {
+				evenChecker[i].setEven(true);
+			} else {
+				evenChecker[i].setEven(false);
+			}
+			hi = lo + hi;
+			lo = hi - lo;
+			System.out.println(fibonacci[i]);
+		}
+
+	}
+}

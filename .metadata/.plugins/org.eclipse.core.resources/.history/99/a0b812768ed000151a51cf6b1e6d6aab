@@ -1,0 +1,5 @@
+package ch01.ex10;
+
+public class EvenChecker {
+	boolean isEven;
+}

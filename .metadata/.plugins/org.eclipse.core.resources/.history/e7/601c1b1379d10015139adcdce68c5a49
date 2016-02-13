@@ -1,0 +1,9 @@
+package ch01.ex14;
+
+public class Walkman {
+	private int id;
+
+	public void play(Cassette cassette) {
+		// カセットの音楽を再生する
+	}
+}
