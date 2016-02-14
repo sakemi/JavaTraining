@@ -1,0 +1,11 @@
+package ch02.ex09;
+
+import org.junit.Before;
+
+public class TestVehicle {
+	private Vehicle vehicle;
+	@Before
+	public void setUp(){
+		this.vehicle = new Vehicle();
+	}
+}
