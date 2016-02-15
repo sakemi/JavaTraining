@@ -1,4 +1,4 @@
-package ch02.ex13;
+package ch02.ex17;
 
 //ex12 ans.
 //フィールドの値は各オブジェクトに対して1つなので可変長引数をとるメソッドは不要
@@ -9,6 +9,8 @@ public class Vehicle {
 	private static int nextID = 0;
 	private static int max = 0;
 	private int myID;
+	public static final boolean TURN_LEFT = true;
+	public static final boolean TURN_RIGHT = false;
 
 	public Vehicle() {
 		this.myID = Vehicle.nextID;
@@ -16,6 +18,31 @@ public class Vehicle {
 		if (Vehicle.max < this.myID) {
 			Vehicle.max = this.myID;
 		}
+	}
+
+	// ex17
+	public void turn(double angle) {
+		this.angle = angle;
+	}
+
+	public void turn(boolean leftOrRight) {
+		if (leftOrRight == Vehicle.TURN_LEFT) {
+			angle += 90;
+		} else if (leftOrRight == Vehicle.TURN_RIGHT) {
+			angle -= 90;
+		} else {
+			// do nothing
+		}
+	}
+
+	// ex15
+	public void changeSpeed(double speed) {
+		this.setSpeed(speed);
+		System.out.println("スピード変更：" + this.speed + "km/h");
+	}
+
+	public void stop() {
+		this.speed = 0;
 	}
 
 	// ex09
@@ -34,13 +61,14 @@ public class Vehicle {
 		return sb.toString();
 	}
 
+	// ch02.ex13
+	// ch02の最初のほうですでに作っていた。仕様の詳細は不明だが、おそらくIDは変更するようなものではないのでセッターは不要
+
 	public Vehicle(String owner) {
 		this();
 		this.owner = owner;
 	}
 
-	// ch02.ex13
-	// ch02の最初のほうですでに作っていた。仕様の詳細は不明だが、おそらくIDは変更するようなものではないのでセッターは不要
 	public double getSpeed() {
 		return speed;
 	}

@@ -1,4 +1,4 @@
-package ch02.ex13;
+package ch02.ex18;
 
 //ex12 ans.
 //フィールドの値は各オブジェクトに対して1つなので可変長引数をとるメソッドは不要
@@ -9,6 +9,8 @@ public class Vehicle {
 	private static int nextID = 0;
 	private static int max = 0;
 	private int myID;
+	public static final boolean TURN_LEFT = true;
+	public static final boolean TURN_RIGHT = false;
 
 	public Vehicle() {
 		this.myID = Vehicle.nextID;
@@ -16,6 +18,36 @@ public class Vehicle {
 		if (Vehicle.max < this.myID) {
 			Vehicle.max = this.myID;
 		}
+	}
+
+	public Vehicle(String owner) {
+		this();
+		this.owner = owner;
+	}
+
+	// ex17
+	public void turn(double angle) {
+		this.angle = angle;
+	}
+
+	public void turn(boolean leftOrRight) {
+		if (leftOrRight == Vehicle.TURN_LEFT) {
+			angle += 90;
+		} else if (leftOrRight == Vehicle.TURN_RIGHT) {
+			angle -= 90;
+		} else {
+			// do nothing
+		}
+	}
+
+	// ex15
+	public void changeSpeed(double speed) {
+		this.setSpeed(speed);
+		System.out.println("スピード変更：" + this.speed + "km/h");
+	}
+
+	public void stop() {
+		this.speed = 0;
 	}
 
 	// ex09
@@ -32,11 +64,6 @@ public class Vehicle {
 		sb.append("ID:").append(this.myID);
 
 		return sb.toString();
-	}
-
-	public Vehicle(String owner) {
-		this();
-		this.owner = owner;
 	}
 
 	// ch02.ex13
@@ -69,10 +96,12 @@ public class Vehicle {
 		return this.myID;
 	}
 
+	// ex18
+	// 結果をコンソール上で確認した
 	public static void main(String[] args) {
 
-		Vehicle foo = new Vehicle("Michael Schumacher");
-		Vehicle bar = new Vehicle("Ayrton Senna da Silva");
+		Vehicle foo = new Vehicle(args[0]);
+		Vehicle bar = new Vehicle(args[1]);
 
 		Vehicle[] vehicleArray = { foo, bar };
 
