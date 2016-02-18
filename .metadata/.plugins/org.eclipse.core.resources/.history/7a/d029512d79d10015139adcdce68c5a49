@@ -1,9 +1,0 @@
-package ch01.ex14;
-
-public class Cassette {
-	private String title;
-
-	public Cassette(String title){
-		this.title = title;
-	}
-}

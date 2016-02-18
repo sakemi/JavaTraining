@@ -1,6 +1,0 @@
-package ch01.ex10;
-
-public class EvenChecker {
-	int num;
-	boolean isEven;
-}
