@@ -1,0 +1,4 @@
+(a)例えばBTreeNodeなら具象クラス
+(b)BinarySearchTreeWalkerなら具象クラス
+(c)実際に描画するクラスなら具象クラス
+(d)
