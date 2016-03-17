@@ -9,12 +9,34 @@ public class Vehicle {
 	private static int nextID = 0;
 	private static int max = 0;
 	private int myID;
+	public static final boolean TURN_LEFT = true;
+	public static final boolean TURN_RIGHT = false;
 
 	public Vehicle() {
 		this.myID = Vehicle.nextID;
 		Vehicle.nextID++;
 		if (Vehicle.max < this.myID) {
 			Vehicle.max = this.myID;
+		}
+	}
+
+	public Vehicle(String owner) {
+		this();
+		this.owner = owner;
+	}
+
+	// ex17
+	public void turn(double angle) {
+		this.angle = angle;
+	}
+
+	public void turn(boolean leftOrRight) {
+		if (leftOrRight == Vehicle.TURN_LEFT) {
+			angle += 90;
+		} else if (leftOrRight == Vehicle.TURN_RIGHT) {
+			angle -= 90;
+		} else {
+			// do nothing
 		}
 	}
 
@@ -46,12 +68,6 @@ public class Vehicle {
 
 	// ch02.ex13
 	// ch02の最初のほうですでに作っていた。仕様の詳細は不明だが、おそらくIDは変更するようなものではないのでセッターは不要
-
-	public Vehicle(String owner) {
-		this();
-		this.owner = owner;
-	}
-
 	public double getSpeed() {
 		return speed;
 	}
@@ -80,10 +96,12 @@ public class Vehicle {
 		return this.myID;
 	}
 
+	// ex18
+	// 結果をコンソール上で確認した
 	public static void main(String[] args) {
 
-		Vehicle foo = new Vehicle("Michael Schumacher");
-		Vehicle bar = new Vehicle("Ayrton Senna da Silva");
+		Vehicle foo = new Vehicle(args[0]);
+		Vehicle bar = new Vehicle(args[1]);
 
 		Vehicle[] vehicleArray = { foo, bar };
 

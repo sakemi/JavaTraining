@@ -1,5 +1,7 @@
 package ch03.ex09;
 
+//TODO:ch03.ex09質問する/テスト通ってない
+
 public class Garage implements Cloneable {
 	private static final int CAPACITY = 5;
 	Vehicle[] vehicle = new Vehicle[CAPACITY];
