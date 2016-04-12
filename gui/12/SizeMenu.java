@@ -16,10 +16,11 @@ public class SizeMenu extends Menu {
 			return ClockFontSize.MEDIUM.getSize();
 		} else if (label.equals(ClockFontSize.LARGE.getLabel())) {
 			return ClockFontSize.LARGE.getSize();
+		} else if (label.equals(ClockFontSize.ULTIMATE.getLabel())) {
+			return ClockFontSize.ULTIMATE.getSize();
 		} else {
 			throw new IllegalStateException("フォントサイズ変更内部エラー");
 		}
 	}
-
 
 }

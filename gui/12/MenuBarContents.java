@@ -14,7 +14,7 @@ public enum MenuBarContents {
 	}
 
 	public enum ClockFontSize {
-		SMALL("Small", 16), MEDIUM("Medium", 30), LARGE("Large", 44);
+		SMALL("Small", 16), MEDIUM("Medium", 30), LARGE("Large", 44),ULTIMATE("Ultimate",400);
 
 		private int size;
 		private String label;
@@ -48,7 +48,7 @@ public enum MenuBarContents {
 	}
 
 	public enum ClockBackgroundColor {
-		WHITE("WhiteBack"), BLUE("BlueBack"), RED("RedBack"), YELLOW("YellowBack");
+		WHITE("WhiteBack"), BLUE("BlueBack"), RED("RedBack"), YELLOW("YellowBack"),RANDOM("Random");
 
 		private String label;
 

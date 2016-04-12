@@ -22,7 +22,7 @@ public class ClockFrame extends Frame implements Runnable, ActionListener {
 	private final int DEFAULT_FRAME_WIDTH = 300;
 	private final int DEFAULT_FRAME_HIGHT = 200;
 	private final int DIGIT_X = 150;
-	private final int DIGIT_Y = 100;
+	private final int DIGIT_Y = 50;
 	private final String TITLE = "Digital Clock";
 	private final int COUNT_UP = 1000;// ms
 	private String time = getNow();
@@ -57,11 +57,9 @@ public class ClockFrame extends Frame implements Runnable, ActionListener {
 		ct = buf.getGraphics();
 		ct.setFont(new Font(font, Font.PLAIN, size));
 		ct.setColor(color);
-		ct.drawString(time, DIGIT_X, DIGIT_Y);
-
 		FontMetrics fm = ct.getFontMetrics();
-//		Rectangle clockArea = ct.getClip().getBounds();
-		setSize(fm.stringWidth(time) + DIGIT_X * 2, fm.getHeight() + (DIGIT_Y * 2 - 100));
+		ct.drawString(time, DIGIT_X, fm.getHeight() + DIGIT_Y);
+		setSize(fm.stringWidth(time) + DIGIT_X * 2, fm.getHeight() + 80);
 
 		setBackground(background);
 		g.drawImage(buf, 0, 0, this);
@@ -125,6 +123,7 @@ public class ClockFrame extends Frame implements Runnable, ActionListener {
 		sizeMenu.add(new MenuItem(ClockFontSize.SMALL.getLabel()));
 		sizeMenu.add(new MenuItem(ClockFontSize.MEDIUM.getLabel()));
 		sizeMenu.add(new MenuItem(ClockFontSize.LARGE.getLabel()));
+		sizeMenu.add(new MenuItem(ClockFontSize.ULTIMATE.getLabel()));
 		sizeMenu.addActionListener(this);
 
 		// color
@@ -141,6 +140,7 @@ public class ClockFrame extends Frame implements Runnable, ActionListener {
 		backgroundMenu.add(new MenuItem(ClockBackgroundColor.BLUE.getLabel()));
 		backgroundMenu.add(new MenuItem(ClockBackgroundColor.RED.getLabel()));
 		backgroundMenu.add(new MenuItem(ClockBackgroundColor.YELLOW.getLabel()));
+		backgroundMenu.add(new MenuItem(ClockBackgroundColor.RANDOM.getLabel()));
 		backgroundMenu.addActionListener(this);
 
 		return mb;
@@ -150,14 +150,14 @@ public class ClockFrame extends Frame implements Runnable, ActionListener {
 		if (ac.equals(Font.SERIF) || ac.equals(Font.SANS_SERIF) || ac.equals(Font.MONOSPACED)) {
 			return MenuBarContents.FONT;
 		} else if (ac.equals(ClockFontSize.SMALL.getLabel()) || ac.equals(ClockFontSize.MEDIUM.getLabel())
-				|| ac.equals(ClockFontSize.LARGE.getLabel())) {
+				|| ac.equals(ClockFontSize.LARGE.getLabel()) || ac.equals(ClockFontSize.ULTIMATE.getLabel())) {
 			return MenuBarContents.SIZE;
 		} else if (ac.equals(ClockFontColor.BLACK.getLabel()) || ac.equals(ClockFontColor.BLUE.getLabel())
 				|| ac.equals(ClockFontColor.RED.getLabel()) || ac.equals(ClockFontColor.YELLOW.getLabel())) {
 			return MenuBarContents.COLOR;
 		} else if (ac.equals(ClockBackgroundColor.WHITE.getLabel()) || ac.equals(ClockBackgroundColor.BLUE.getLabel())
 				|| ac.equals(ClockBackgroundColor.RED.getLabel())
-				|| ac.equals(ClockBackgroundColor.YELLOW.getLabel())) {
+				|| ac.equals(ClockBackgroundColor.YELLOW.getLabel()) || ac.equals(ClockBackgroundColor.RANDOM.getLabel())) {
 			return MenuBarContents.BACKGROUND;
 		} else {
 			throw new IllegalStateException();
