@@ -1,0 +1,7 @@
+1.IllegalArgumentExceptionをスローする
+2.IllegalStateExceptionをスローする
+3.戻り値を使う(null,false)
+4.FileNotFoundExceptionをスローする
+5.戻り値を使う(false)
+6.戻り値を使う
+7.下位レベルの原因を保持した例外を用いる

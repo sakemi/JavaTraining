@@ -1,4 +1,4 @@
-package gui;
+package gui1;
 
 public class DigitalClock {
 	private static ClockFrame frame = new ClockFrame();
