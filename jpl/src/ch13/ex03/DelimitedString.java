@@ -2,18 +2,24 @@ package ch13.ex03;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DelimitedString {
 	public static List<String> delimitedString(String from, char start, char end) {
-		String regExp = start + ".*" + end;
-		Pattern pat = Pattern.compile(regExp);
-		Matcher matcher = pat.matcher(from);
+		int startPos = from.indexOf(start);
+		int endPos = from.indexOf(end);
 		List<String> result = new ArrayList<String>();
 
-		while (matcher.find()) {
-			result.add(matcher.group());
+		while (true) {
+			if (startPos == -1) {
+				break;
+			} else if (endPos == -1) {
+				break;
+			} else if (startPos > endPos) {
+				endPos = from.indexOf(end, endPos + 1);
+			} else {
+				result.add(from.substring(startPos, endPos + 1));
+				startPos = from.indexOf(start, startPos + 1);
+			}
 		}
 
 		return result;
