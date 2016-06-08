@@ -91,7 +91,7 @@ public class ThreadPool {
 		endFlg = true;
 		for (Thread t : threads) {
 			try {
-				t.join(100);
+				t.join(500);
 			} catch (InterruptedException e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
