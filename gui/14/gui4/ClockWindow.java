@@ -175,7 +175,6 @@ public class ClockWindow extends Frame implements MouseMotionListener, MouseList
 
 	@Override
 	public void update(Graphics g) {
-		time = getNow();
 		paint(g);
 	}
 
@@ -183,6 +182,7 @@ public class ClockWindow extends Frame implements MouseMotionListener, MouseList
 	public void paint(Graphics g) {
 		Dimension d = getSize();
 
+		time = getNow();
 		buf = createImage(d.width, d.height);
 		ct = buf.getGraphics();
 		ct.setFont(new Font(font, Font.PLAIN, fontSize));

@@ -13,8 +13,8 @@ public class DigitalClock implements Runnable {
 		win.setVisible(true);
 		win.toFront();
 		while (true) {
+			win.repaint();
 			try {
-				win.repaint();
 				Thread.sleep(MARGIN);
 			} catch (InterruptedException e) {
 				// TODO:あとで何とかするかも
