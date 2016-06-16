@@ -1,8 +1,12 @@
-package ch16.ex11;
+package ch16.ex12;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Enumeration;
 
 public class PlayerLoader extends ClassLoader {
 	@Override
@@ -13,6 +17,26 @@ public class PlayerLoader extends ClassLoader {
 		} catch (IOException e) {
 			throw new ClassNotFoundException(e.toString());
 		}
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public URL findResource(String name) {
+		File f = fileFor(name);
+		if (!f.exists()) {
+			return null;
+		}
+		try {
+			return f.toURL();
+		} catch (MalformedURLException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public Enumeration<URL> findResources(String name) {
+		// ??
+		return null;
 	}
 
 	protected byte[] bytesForClass(String name) throws IOException, ClassNotFoundException {
@@ -37,6 +61,10 @@ public class PlayerLoader extends ClassLoader {
 			e.printStackTrace();
 		}
 		return in;
+	}
+
+	private File fileFor(String resource) {
+		return new File(resource);
 	}
 
 }

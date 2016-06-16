@@ -1,4 +1,4 @@
-package ch16.ex11;
+package ch16.ex12;
 
 import java.util.Random;
 
