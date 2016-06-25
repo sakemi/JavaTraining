@@ -37,13 +37,18 @@ public class Interpreter {
 			}
 			if (args.length != 0) {
 				for (int i = 0; i < t.length; i++) {
-					Class<?> cls = args[i].getClass();
+					if (args[i] == null) {
+						throw new IllegalArgumentException();
+					}
+					Class<?> cls;
 					if (Integer.class.isInstance(args[i])) {
 						cls = int.class;
 					} else if (Double.class.isInstance(args[i])) {
 						cls = double.class;
 					} else if (Boolean.class.isInstance(args[i])) {
 						cls = boolean.class;
+					} else {
+						cls = args[i].getClass();
 					}
 
 					if (t[i] != cls) {
@@ -62,23 +67,8 @@ public class Interpreter {
 				return obj;
 			}
 		}
-		return null;
+		throw new IllegalArgumentException();
 	}
-
-	// public Object instantiatePrimitive(String type, String name, String
-	// value) {
-	// Object obj;
-	// if (type.equals("int")) {
-	// obj = new Integer(value);
-	// objects.put("int " + name, obj);
-	// }else if(type.equals("double")){
-	// obj = new Double(value);
-	// objects.put("double " + name, obj);
-	// }else if(type.equals("boolean")){
-	// obj = new Boolean(value);
-	// objects.put("boolean" + name, value);
-	// }
-	// }
 
 	public Object generateArray(String componentType, String name, int length)
 			throws NegativeArraySizeException, ClassNotFoundException {
@@ -104,6 +94,7 @@ public class Interpreter {
 		}
 		Object array = Array.newInstance(clazz, length);
 		arrays.put(componentType + "[] " + name, array);
+		objects.put(componentType + "[] " + name, array);
 		return array;
 	}
 
@@ -123,12 +114,13 @@ public class Interpreter {
 		return cList;
 	}
 
-	public void invokeMethod(String object, Method m, Object... args)
+	public Object invokeMethod(String object, Method m, Object... args)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Object retObjClass = (m.invoke(objects.get(object), args));
 		if (retObjClass != void.class) {
 			objects.put("retVal" + retValID, retObjClass);
 		}
+		return retObjClass;
 	}
 
 	public Map<String, Method> getMethods(String object) throws ClassNotFoundException {

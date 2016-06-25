@@ -13,6 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JTextField;
 
 import interpreter.Interpreter;
+import ui.window.Main;
 import ui.window.error.ErrorUtil;
 
 public class EditFieldDialog extends JDialog {
@@ -23,10 +24,12 @@ public class EditFieldDialog extends JDialog {
 	private final JTextField value = new JTextField("Input value", 20);
 	private final JButton apply = new JButton("Apply");
 	private Map<String, Field> map;
+	private final Main main;
 
-	public EditFieldDialog(Interpreter itp, String selectedObj) {
+	public EditFieldDialog(Interpreter itp, String selectedObj, Main main) {
 		this.selectedObj = selectedObj;
 		this.itp = itp;
+		this.main = main;
 		setSize(500, 300);
 		initModel();
 		fieldList = new JComboBox<String>(model);
@@ -59,9 +62,10 @@ public class EditFieldDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自動生成されたメソッド・スタブ
-				Object arg = createArg(value.getText());
 				try {
+					Object arg = createArg(value.getText());
 					itp.rewriteField(selectedObj, map.get((String) fieldList.getSelectedItem()), arg);
+					main.updateField();
 				} catch (IllegalAccessException e1) {
 					// TODO 自動生成された catch ブロック
 					ErrorUtil.showError(e1, EditFieldDialog.this);
@@ -73,7 +77,7 @@ public class EditFieldDialog extends JDialog {
 		});
 	}
 
-	private Object createArg(String in) {
+	private Object createArg(String in) throws IllegalArgumentException{
 		if (in.equals("")) {
 			return null;
 		}
@@ -85,20 +89,24 @@ public class EditFieldDialog extends JDialog {
 		return obj;
 	}
 
-	private Object convertLiteral(String value) {
+	private Object convertLiteral(String value) throws IllegalArgumentException {
 		String type = value.split(" ")[0];
 		Object obj;
-		if (type.equals("int")) {
-			obj = new Integer(value.split(" ")[1]);
-		} else if (type.equals("double")) {
-			obj = new Double(value.split(" ")[1]);
-		} else if (type.equals("boolean")) {
-			obj = new Boolean(value.split(" ")[1]);
-		} else if (type.equals("String")) {
-			obj = value.split(" ")[1];
-		} else {
-			return null;
+		try {
+			if (type.equals("int")) {
+				obj = new Integer(value.split(" ")[1]);
+			} else if (type.equals("double")) {
+				obj = new Double(value.split(" ")[1]);
+			} else if (type.equals("boolean")) {
+				obj = new Boolean(value.split(" ")[1]);
+			} else if (type.equals("String")) {
+				obj = value.split(" ")[1];
+			} else {
+				return null;
+			}
+			return obj;
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException();
 		}
-		return obj;
 	}
 }

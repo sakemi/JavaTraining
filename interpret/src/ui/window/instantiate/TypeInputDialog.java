@@ -49,9 +49,7 @@ public class TypeInputDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO 自動生成されたメソッド・スタブ
 				type = typeName.getText();
-				// TODO:入力値バリデーションが必要
 				valiable = valiableName.getText();
 				if (isArray.isSelected()) {
 					ArrayDialog array = new ArrayDialog(inputDialog, itp, mainFrame);

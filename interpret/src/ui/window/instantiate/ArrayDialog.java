@@ -18,15 +18,17 @@ public class ArrayDialog extends JDialog {
 	private final JTextField input = new JTextField("Input array size", 3);
 	private final JButton ok = new JButton("OK");
 	private final Interpreter itp;
+	private final Main main;
 
 	public ArrayDialog(TypeInputDialog parent, Interpreter itp, Main main) {
 		super(parent, true);
 		this.itp = itp;
-		setSize(300, 300);
+		this.main = main;
+		setSize(300, 150);
 		this.type = parent.getInput();
 		this.name = parent.getValiable();
 		addListener();
-		setLayout(new GridLayout(2,1));
+		setLayout(new GridLayout(2, 1));
 		add(input);
 		add(ok);
 	}
@@ -38,17 +40,18 @@ public class ArrayDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自動生成されたメソッド・スタブ
 				try {
-					itp.generateArray(type, name, Integer.parseInt(input.getText()));
-					//main.updateObjectList();
+					Object obj = itp.generateArray(type, name, Integer.parseInt(input.getText()));
+					main.updateObjectList(type + "[] " + name);
+					main.output("created : " + obj.toString());
 				} catch (NumberFormatException e1) {
 					// TODO 自動生成された catch ブロック
-					ErrorUtil.showError(e1,ArrayDialog.this);
+					ErrorUtil.showError(e1, ArrayDialog.this);
 				} catch (NegativeArraySizeException e1) {
 					// TODO 自動生成された catch ブロック
-					ErrorUtil.showError(e1,ArrayDialog.this);
+					ErrorUtil.showError(e1, ArrayDialog.this);
 				} catch (ClassNotFoundException e1) {
 					// TODO 自動生成された catch ブロック
-					ErrorUtil.showError(e1,ArrayDialog.this);
+					ErrorUtil.showError(e1, ArrayDialog.this);
 				}
 			}
 

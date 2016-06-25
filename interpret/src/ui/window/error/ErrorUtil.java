@@ -5,6 +5,10 @@ import javax.swing.JOptionPane;
 
 public class ErrorUtil {
 	public static void showError(Exception e, JDialog parent) {
-		JOptionPane.showMessageDialog(parent, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+		if (e.getCause() != null) {
+			JOptionPane.showMessageDialog(parent, e.getCause().toString(), "Error", JOptionPane.ERROR_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(parent, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

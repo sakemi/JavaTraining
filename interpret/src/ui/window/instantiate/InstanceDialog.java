@@ -25,7 +25,7 @@ public class InstanceDialog extends JDialog {
 		super(parent, true);
 		this.main = main;
 		this.itp = itp;
-		setSize(300, 300);
+		setSize(300, 150);
 		this.type = parent.getInput();
 		this.name = parent.getValiable();
 		addListener();
@@ -42,23 +42,24 @@ public class InstanceDialog extends JDialog {
 				// TODO 自動生成されたメソッド・スタブ
 				Object[] args = createArgs(input.getText());
 				try {
-					itp.instantiate(type, name, args);
+					Object obj = itp.instantiate(type, name, args);
 					main.updateObjectList(type + " " + name);
+					main.output("instantiate : " + obj.getClass().toString());
 				} catch (InstantiationException e1) {
 					// TODO 自動生成された catch ブロック
-					ErrorUtil.showError(e1,InstanceDialog.this);
+					ErrorUtil.showError(e1, InstanceDialog.this);
 				} catch (IllegalAccessException e1) {
 					// TODO 自動生成された catch ブロック
-					ErrorUtil.showError(e1,InstanceDialog.this);
+					ErrorUtil.showError(e1, InstanceDialog.this);
 				} catch (IllegalArgumentException e1) {
 					// TODO 自動生成された catch ブロック
-					ErrorUtil.showError(e1,InstanceDialog.this);
+					ErrorUtil.showError(e1, InstanceDialog.this);
 				} catch (InvocationTargetException e1) {
 					// TODO 自動生成された catch ブロック
-					ErrorUtil.showError(e1,InstanceDialog.this);
+					ErrorUtil.showError(e1, InstanceDialog.this);
 				} catch (ClassNotFoundException e1) {
 					// TODO 自動生成された catch ブロック
-					ErrorUtil.showError(e1,InstanceDialog.this);
+					ErrorUtil.showError(e1, InstanceDialog.this);
 				}
 			}
 
@@ -81,16 +82,16 @@ public class InstanceDialog extends JDialog {
 	}
 
 	private Object convertLiteral(String params) {
-		String type = params.split(" ")[0];
+		String type = params.split(" ", 2)[0];
 		Object obj;
 		if (type.equals("int")) {
-			obj = new Integer(params.split(" ")[1]);
+			obj = new Integer(params.split(" ", 2)[1]);
 		} else if (type.equals("double")) {
-			obj = new Double(params.split(" ")[1]);
+			obj = new Double(params.split(" ", 2)[1]);
 		} else if (type.equals("boolean")) {
-			obj = new Boolean(params.split(" ")[1]);
+			obj = new Boolean(params.split(" ", 2)[1]);
 		} else if (type.equals("String")) {
-			obj = params.split(" ")[1];
+			obj = params.split(" ", 2)[1];
 		} else {
 			return null;
 		}
