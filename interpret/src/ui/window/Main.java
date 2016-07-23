@@ -84,7 +84,7 @@ public class Main extends JFrame {
 		console.setEditable(false);
 		console.setForeground(new Color(255, 255, 255));
 		console.setBackground(new Color(0, 0, 0));
-		console.append(">Interpreter version 1.1\n\n>");
+		console.append(">Interpreter version 1.2\n\n>");
 		initListener();
 	}
 

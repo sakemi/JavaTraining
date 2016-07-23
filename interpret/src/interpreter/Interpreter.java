@@ -125,6 +125,9 @@ public class Interpreter {
 
 	public Map<String, Method> getMethods(String object) throws ClassNotFoundException {
 		Map<String, Method> mMap = new HashMap<String, Method>();
+		if (objects.get(object) == null) {
+			return mMap;
+		}
 		Class<?> clazz = objects.get(object).getClass();
 		Method[] methods = clazz.getMethods();
 		for (Method m : methods) {
@@ -148,6 +151,9 @@ public class Interpreter {
 
 	public Map<String, Field> getFields(String object) throws ClassNotFoundException {
 		Map<String, Field> fMap = new HashMap<String, Field>();
+		if (objects.get(object) == null) {
+			return fMap;
+		}
 		Class<?> clazz = objects.get(object).getClass();
 		Field[] privateFields = clazz.getDeclaredFields();
 		Field[] publicFields = clazz.getFields();

@@ -4,8 +4,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 
@@ -20,18 +23,34 @@ public class InstanceDialog extends JDialog {
 	private final JButton ok = new JButton("OK");
 	private final Interpreter itp;
 	private final Main main;
+	private final JComboBox<String> constructorList;
+	private DefaultComboBoxModel<String> model;
+	private List<String> list;
 
 	public InstanceDialog(TypeInputDialog parent, Interpreter itp, Main main) {
 		super(parent, true);
 		this.main = main;
 		this.itp = itp;
-		setSize(300, 150);
 		this.type = parent.getInput();
 		this.name = parent.getValiable();
+		initModel();
+		constructorList = new JComboBox<String>(model);
+		setSize(500, 300);
 		addListener();
-		setLayout(new GridLayout(2, 1));
+		setLayout(new GridLayout(3, 1));
+		add(constructorList);
 		add(input);
 		add(ok);
+	}
+
+	private void initModel() {
+		try {
+			list = itp.getConstructors(type);
+			model = new DefaultComboBoxModel<String>(list.toArray(new String[0]));
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			ErrorUtil.showError(e, this);
+		}
 	}
 
 	private void addListener() {
@@ -45,6 +64,7 @@ public class InstanceDialog extends JDialog {
 					Object obj = itp.instantiate(type, name, args);
 					main.updateObjectList(type + " " + name);
 					main.output("instantiate : " + obj.getClass().toString());
+					setVisible(false);
 				} catch (InstantiationException e1) {
 					// TODO 自動生成された catch ブロック
 					ErrorUtil.showError(e1, InstanceDialog.this);
