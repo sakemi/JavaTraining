@@ -98,10 +98,10 @@ public class Interpreter {
 		return array;
 	}
 
-	public String setArrayComponent(String array, int index, Object component) {
-		Array.set(arrays.get(array), index, component);
-		objects.put(array + "[" + index + "]", component);
-		return array + "[" + index + "]";
+	public String setArrayComponent(String array, int index, String selectedObj) {
+		Array.set(arrays.get(array), index, objects.get(selectedObj));
+		objects.put(array + "[" + index + "]", objects.get(selectedObj));
+		return array + "[" + index + "] " + selectedObj;
 	}
 
 	public List<String> getConstructors(String type) throws ClassNotFoundException {

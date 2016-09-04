@@ -57,12 +57,14 @@ public class ArrayEditDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自動生成されたメソッド・スタブ
 				try {
-					String s = itp.setArrayComponent((String) arrayList.getSelectedItem(),
-							Integer.parseInt(index.getText()), itp.getObjects().get(selectedObj));
+					String array = (String) arrayList.getSelectedItem();
+					int i = Integer.parseInt(index.getText());
+					String s = itp.setArrayComponent(array, i, selectedObj);
+					main.deleteObject(array + "[" + i + "]");
 					main.updateObjectList(s);
 				} catch (IllegalArgumentException e1) {
 					// TODO 自動生成された catch ブロック
-					ErrorUtil.showError(e1,ArrayEditDialog.this);
+					ErrorUtil.showError(e1, ArrayEditDialog.this);
 				}
 			}
 		});

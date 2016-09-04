@@ -33,7 +33,7 @@ public class Main extends JFrame {
 	private static final String LABEL_ARRAY_BUTTON = "Set Array Compnent";
 	private static final String SELECT_OBJECT_LABEL = "Select Object";
 	private static final String OPERATION_LABEL = "Operation to Selected Object";
-	private static final String FIELD_LABEL = "Field";
+	private static final String FIELD_LABEL = "Object Info";
 	private static final String CONSOLE_LABEL = "Console";
 
 	private JDialog instantiate;
@@ -84,12 +84,21 @@ public class Main extends JFrame {
 		console.setEditable(false);
 		console.setForeground(new Color(255, 255, 255));
 		console.setBackground(new Color(0, 0, 0));
-		console.append(">Interpreter version 1.2\n\n>");
+		console.append(">Interpreter version 1.3\n\n>");
 		initListener();
 	}
 
 	public void updateObjectList(String in) {
 		model.addElement(in);
+	}
+
+	public void deleteObject(String in) {
+		for (int i = 0; i < model.getSize(); i++) {
+			if (model.getElementAt(i).contains(in)) {
+				model.removeElementAt(i);
+				break;
+			}
+		}
 	}
 
 	public void output(String mes) {
@@ -198,35 +207,10 @@ public class Main extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自動生成されたメソッド・スタブ
-				selectedObj = (String) objectList.getSelectedItem();
+				String[] s = ((String) objectList.getSelectedItem()).split(" ");
+				selectedObj = s[0] + " " + s[1];
 				updateField();
 			}
 		});
-
-		// fieldList.addListSelectionListener(new ListSelectionListener() {
-		//
-		// @Override
-		// public void valueChanged(ListSelectionEvent e) {
-		// // TODO 自動生成されたメソッド・スタブ
-		// try {
-		// Field f =
-		// itp.getFields(selectedObj).get(fieldList.getSelectedValue());
-		// StringBuilder out;
-		// out = new
-		// StringBuilder().append(fieldList.getSelectedValue()).append(":\n>").append(f.get(itp.getObject(selectedObj)));
-		// output(out.toString());
-		// } catch (ClassNotFoundException e1) {
-		// // TODO 自動生成された catch ブロック
-		// e1.printStackTrace();
-		// } catch (IllegalArgumentException e1) {
-		// // TODO 自動生成された catch ブロック
-		// e1.printStackTrace();
-		// } catch (IllegalAccessException e1) {
-		// // TODO 自動生成された catch ブロック
-		// e1.printStackTrace();
-		// }
-		// }
-		//
-		// });
 	}
 }

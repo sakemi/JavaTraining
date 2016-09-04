@@ -40,8 +40,13 @@ public class ArrayDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自動生成されたメソッド・スタブ
 				try {
-					Object obj = itp.generateArray(type, name, Integer.parseInt(input.getText()));
-					main.updateObjectList(type + "[] " + name);
+					int index = Integer.parseInt(input.getText());
+					String array = type + "[] " + name;
+					Object obj = itp.generateArray(type, name, index);
+					main.updateObjectList(array);
+					for(int i = 0; i < index; i++){
+						main.updateObjectList(array + "[" + i + "] null" );
+					}
 					main.output("created : " + obj.toString());
 				} catch (NumberFormatException e1) {
 					// TODO 自動生成された catch ブロック
