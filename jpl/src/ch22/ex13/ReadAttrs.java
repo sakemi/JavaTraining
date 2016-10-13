@@ -1,4 +1,4 @@
-package ch22.ex12;
+package ch22.ex13;
 
 import java.io.Reader;
 import java.util.Scanner;
@@ -12,11 +12,9 @@ public class ReadAttrs {
 	public static Attributed readAttrs(Reader source) {
 		Scanner in = new Scanner(source);
 		AttributedImpl attrs = new AttributedImpl();
-		Pattern attrPat = Pattern.compile("(.+)=(.+)");
+		Pattern attrPat = Pattern.compile("(.*?)=(.*)");
 		while (in.hasNext()) {
-			in.useDelimiter(" ");
 			in.next(attrPat);
-			in.useDelimiter(Pattern.compile("=| "));
 			MatchResult m = in.match();
 			attrs.add(new Attr(m.group(1), m.group(2)));
 		}
