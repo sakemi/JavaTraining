@@ -1,10 +1,6 @@
 package ch22.ex08;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,23 +15,18 @@ public class CSVScanner {
 		Scanner in = new Scanner(source);
 		List<String[]> vals = new ArrayList<String[]>();
 
-		String exp = "^(.*),(.*),(.*),(.*)";
-		String illegalExp = "^(.*),(.*),(.*),(.*),(.*)";
+		String exp = "^([^,]*),([^,]*),([^,]*),([^,]*)$";
+		// String exp = "^(.*),(.*),(.*),(.*)";
 
 		Pattern pat = Pattern.compile(exp, Pattern.MULTILINE);
-		Pattern illegalPat = Pattern.compile(illegalExp, Pattern.MULTILINE);
 
 		while (in.hasNextLine()) {
-			if (in.findInLine(illegalPat) != null) {
-				throw new IllegalStateException("Too many cells: the number of cell must be 4");
-			}
-
-			if (in.findInLine("^$") != null) {
-				continue;
-			}
-
 			String line = in.findInLine(pat);
 			if (line != null) {
+				if (line.length() == 0) {
+					continue;
+				}
+
 				String[] cells = new String[CELLS];
 				MatchResult match = in.match();
 				for (int i = 0; i < CELLS; i++) {
@@ -54,18 +45,4 @@ public class CSVScanner {
 		}
 		return vals;
 	}
-
-	public static void main(String[] args) {
-		try (Reader reader = new InputStreamReader(new FileInputStream(args[0]))) {
-			List<String[]> vals = readCSVTable(reader);
-			System.out.println(vals.get(0)[2]);
-		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-	}
-
 }
